@@ -1,0 +1,9 @@
+body {
+    margin: 200px;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+    background-color: skyblue;
+}
