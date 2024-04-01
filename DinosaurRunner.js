@@ -19,12 +19,12 @@ function startGame() {
             ctx.fillRect(this.x, this.y, this.width, this.height);
         },
         update: function() { 
-            if (this.y > 110 && dinosaurDirection === 1) {
+            if (this.y > 120 && dinosaurDirection === 1) {
                 this.y -= this.speed;
-            } else if (this.y === 110) {
+            } else if (this.y === 120) {
                 dinosaurDirection = -1;
                 this.y += this.speed;
-            } else if (this.y > 110 && this.y < 240 && dinosaurDirection === -1) {
+            } else if (this.y > 120 && this.y < 240 && dinosaurDirection === -1) {
                 this.y += this.speed;
             }
         }
@@ -42,7 +42,7 @@ function startGame() {
     }
 
     document.addEventListener('keydown', function(event) {
-        if (event.code === 'Space') {
+        if (event.key === ' ') {
             dinosaurDirection = 1;
         } else if (event.key === 'ArrowDown' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
