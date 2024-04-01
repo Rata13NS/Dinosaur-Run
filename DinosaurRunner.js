@@ -19,33 +19,34 @@ function startGame() {
             ctx.fillRect(this.x, this.y, this.width, this.height);
         },
         update: function() { 
-            if (dinosaur.y > 85 && dinosaurDirection === 1) {
+            if (dinosaur.y > 110 && dinosaurDirection === 1) {
                 dinosaur.y -= dinosaur.speed;
-            } else if (dinosaur.y === 85) {
+            } else if (dinosaur.y === 110) {
                 dinosaurDirection *= -1;
                 dinosaur.y += dinosaur.speed;
-            } else if (dinosaur.y > 85 && dinosaur.y < 240 && dinosaurDirection === -1) {
+            } else if (dinosaur.y > 110 && dinosaur.y < 240 && dinosaurDirection === -1) {
                 dinosaur.y += dinosaur.speed;
             }
         }
     }
     dinosaur.draw();
     
+    function animateDinosaur() {
+        requestAnimationFrame(animateDinosaur);
+        ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
+        dinosaur.update();
+        dinosaur.draw();
+    }
+    if (gameOver === false) {
+        animateDinosaur();
+    }
+
     document.addEventListener('keydown', function(event) {
         if (event.code === 'Space') {
             dinosaurDirection *= -1;
-            function animateDinosaur() {
-                requestAnimationFrame(animateDinosaur);
-                ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
-                dinosaur.update();
-                dinosaur.draw();
-            }
-            if (gameOver === false) {
-                animateDinosaur();
-            }
         } else if (event.key === 'ArrowDown' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
-            dinosaur.y = 270;
+            dinosaur.y = 280;
             dinosaur.draw();
         } else if (event.key === 'ArrowUp' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
@@ -56,12 +57,15 @@ function startGame() {
 
     function showObstacles() {
         let pointsCounter = 0;
-        randomObstacles = Math.floor(Math.random() * 2) + 1;
+        randomObstacles = Math.floor(Math.random() * 3) + 1;
         if (randomObstacles % 2 === 0) {
             let yValue = 270;
             createAndAnimateObstacles(yValue);
-        } else if (randomObstacles % 2 != 0) {
-            let yValue = 230;
+        } else if (randomObstacles % 3 === 0) {
+            let yValue = 220;
+            createAndAnimateObstacles(yValue);
+        } else {
+            let yValue = 240;
             createAndAnimateObstacles(yValue);
         }
         
