@@ -32,7 +32,7 @@ function startGame() {
     dinosaur.draw();
     
     document.addEventListener('keydown', function(event) {
-        if (event.code === 'Space' && gameOver === false) {
+        if (event.code === 'Space') {
             dinosaurDirection *= -1;
             function animateDinosaur() {
                 requestAnimationFrame(animateDinosaur);
@@ -40,7 +40,9 @@ function startGame() {
                 dinosaur.update();
                 dinosaur.draw();
             }
+            if (gameOver === false) {
                 animateDinosaur();
+            }
         } else if (event.key === 'ArrowDown' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
             dinosaur.y = 270;
@@ -55,7 +57,6 @@ function startGame() {
     function showObstacles() {
         let pointsCounter = 0;
         randomObstacles = Math.floor(Math.random() * 2) + 1;
-        console.log(randomObstacles);
         if (randomObstacles % 2 === 0) {
             let yValue = 270;
             createAndAnimateObstacles(yValue);
@@ -104,6 +105,7 @@ function startGame() {
                 obstacle.update();
                 obstacle.draw();
             }
+            
             if (gameOver === false) {
                 animateObstacles();
             }
