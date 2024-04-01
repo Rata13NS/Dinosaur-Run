@@ -80,7 +80,7 @@ function startGame() {
                     if (this.x > -100) {
                         this.x -= this.speed; 
                     } else {
-                        delete obstacle;
+                        obstacle = null;
                     }
                 }
             }
