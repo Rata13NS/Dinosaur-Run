@@ -22,7 +22,7 @@ function startGame() {
             if (this.y > 110 && dinosaurDirection === 1) {
                 this.y -= this.speed;
             } else if (this.y === 110) {
-                dinosaurDirection *= -1;
+                dinosaurDirection = -1;
                 this.y += this.speed;
             } else if (this.y > 110 && this.y < 240 && dinosaurDirection === -1) {
                 this.y += this.speed;
