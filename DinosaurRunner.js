@@ -5,7 +5,6 @@ let randomObstacles;
 let crashCounter = 0;
 let points = 0;
 let gameOver = false;
-let obstacleInterval;
 let obstacleScheduled = false;
 
 function startGame() {
@@ -14,7 +13,7 @@ function startGame() {
         y: 240,
         width: 20,
         height: 60,
-        color: 'black',
+        color: 'brown',
         speed: 5,
         draw: function() {
             ctx.fillStyle = this.color;
@@ -43,13 +42,6 @@ function startGame() {
         animateDinosaur();
     }
 
-    function scheduleObstacle() {
-        if (!obstacleScheduled) {
-            obstacleScheduled = true;
-            obstacleInterval = setInterval(showObstacles, 1800);
-        }
-    }
-
     document.addEventListener('keydown', function(event) {
         if (event.key === ' ' && gameOver === false) {
             dinosaurDirection = 1;
@@ -69,21 +61,28 @@ function startGame() {
         randomObstacles = Math.floor(Math.random() * 3) + 1;
         if (randomObstacles % 2 === 0) {
             let yValue = 270;
-            createAndAnimateObstacles(yValue);
+            let obstacleHeight = 35;
+            let obstacleColor = 'green';
+            createAndAnimateObstacles(yValue, obstacleColor, obstacleHeight);
         } else if (randomObstacles % 3 === 0) {
-            let yValue = 220;
-            createAndAnimateObstacles(yValue);
+            let yValue = 230;
+            let obstacleHeight = 20;
+            let obstacleColor = 'red';
+            createAndAnimateObstacles(yValue, obstacleColor, obstacleHeight);
         } else {
-            let yValue = 240;
-            createAndAnimateObstacles(yValue);
+            let yValue = 250;
+            let obstacleHeight = 20;
+            let obstacleColor = 'grey';
+            createAndAnimateObstacles(yValue, obstacleColor, obstacleHeight);
         }
         
-        function createAndAnimateObstacles(yValue) {
+        function createAndAnimateObstacles(yValue, obstacleColor, obstacleHeight) {
             let obstacle = {
                 x: 1520,
                 y: yValue, 
                 width: 50,
-                height: 35,
+                height: obstacleHeight,
+                color: obstacleColor,
                 speed: 4,
                 draw: function() {
                     ctx.fillStyle = this.color;
@@ -125,6 +124,12 @@ function startGame() {
         }
     }
 
+    function scheduleObstacle() {
+        if (!obstacleScheduled) {
+            obstacleScheduled = true;
+            setInterval(showObstacles, 1700);
+        }
+    }
     scheduleObstacle();
     
     function incrementSeconds() {
