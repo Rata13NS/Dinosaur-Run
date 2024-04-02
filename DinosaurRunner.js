@@ -5,6 +5,8 @@ let randomObstacles;
 let crashCounter = 0;
 let points = 0;
 let gameOver = false;
+let obstacleInterval;
+let obstacleScheduled = false;
 
 function startGame() {
     let dinosaur = {
@@ -41,8 +43,15 @@ function startGame() {
         animateDinosaur();
     }
 
+    function scheduleObstacle() {
+        if (!obstacleScheduled) {
+            obstacleScheduled = true;
+            obstacleInterval = setInterval(showObstacles, 1800);
+        }
+    }
+
     document.addEventListener('keydown', function(event) {
-        if (event.key === ' ') {
+        if (event.key === ' ' && gameOver === false) {
             dinosaurDirection = 1;
         } else if (event.key === 'ArrowDown' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
@@ -115,15 +124,9 @@ function startGame() {
             }
         }
     }
-    
-    if (points < 200) {
-        setInterval(showObstacles, 2500);
-    } else if (points >= 200 && points <= 500) {
-        setInterval(showObstacles, 2000);
-    } else {
-        setInterval(showObstacles, 1500);
-    }
 
+    scheduleObstacle();
+    
     function incrementSeconds() {
         ++points;
     }
