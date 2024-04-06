@@ -28,12 +28,12 @@ function startGame() {
         },
         update: function() { 
             if (this.y > 20 && dinosaurDirection === 1) {
-                this.y -= this.speed;
-            } else if (this.y === 20) {
-                dinosaurDirection = -1;
-                this.y += this.speed;
-            } else if (this.y > 20 && this.y < 205 && dinosaurDirection === -1) {
-                this.y += this.speed;
+                this.y -= this.speed; // Săritură
+                if (this.y <= 20) {
+                    dinosaurDirection = -1; // Schimbăm direcția la coborâre când dinozaurul a atins înălțimea maximă
+                }
+            } else if (this.y < 205 && dinosaurDirection === -1) {
+                this.y += this.speed; // Coborâre
             }
         }
     }
@@ -50,12 +50,13 @@ function startGame() {
     }
 
     document.addEventListener('keydown', function(event) {
-        if (event.key === ' ' && gameOver === false) {
+        if (event.key === ' ' && gameOver === false && dinosaur.y === 205) {
             dinosaurDirection = 1;
         } else if (event.key === 'ArrowDown' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
             dinosaur.y = 253;
             dinosaur.draw();
+            
         } else if (event.key === 'ArrowUp' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
             dinosaur.y = 205;
