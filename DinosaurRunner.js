@@ -7,25 +7,32 @@ let points = 0;
 let gameOver = false;
 let obstacleScheduled = false;
 
+let imgDinosaur = new Image();
+imgDinosaur.src = "images.png";
+let imgObstacle1 = new Image();
+imgObstacle1.src = "cactus2.png";
+let imgObstacle2 = new Image();
+imgObstacle2.src = "bird1.png";
+let imgObstacle3 = new Image();
+imgObstacle3.src = "bird2.png";
+
 function startGame() {
     let dinosaur = {
         x: 300,
-        y: 240,
-        width: 20,
-        height: 60,
-        color: 'brown',
+        y: 205,
+        width: 60,
+        height: 120,
         speed: 5,
         draw: function() {
-            ctx.fillStyle = this.color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.drawImage(imgDinosaur, this.x, this.y, this.width, this.height);
         },
         update: function() { 
-            if (this.y > 120 && dinosaurDirection === 1) {
+            if (this.y > 20 && dinosaurDirection === 1) {
                 this.y -= this.speed;
-            } else if (this.y === 120) {
+            } else if (this.y === 20) {
                 dinosaurDirection = -1;
                 this.y += this.speed;
-            } else if (this.y > 120 && this.y < 240 && dinosaurDirection === -1) {
+            } else if (this.y > 20 && this.y < 205 && dinosaurDirection === -1) {
                 this.y += this.speed;
             }
         }
@@ -47,11 +54,11 @@ function startGame() {
             dinosaurDirection = 1;
         } else if (event.key === 'ArrowDown' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
-            dinosaur.y = 280;
+            dinosaur.y = 253;
             dinosaur.draw();
         } else if (event.key === 'ArrowUp' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
-            dinosaur.y = 240;
+            dinosaur.y = 205;
             dinosaur.draw();
         }
     });
@@ -60,33 +67,31 @@ function startGame() {
         let pointsCounter = 0;
         randomObstacles = Math.floor(Math.random() * 3) + 1;
         if (randomObstacles % 2 === 0) {
-            let yValue = 270;
-            let obstacleHeight = 35;
-            let obstacleColor = 'green';
-            createAndAnimateObstacles(yValue, obstacleColor, obstacleHeight);
+            let yValue = 260;
+            let obstacleWidth = 70;
+            let obstacleHeight = 60;
+            createAndAnimateObstacles(yValue, obstacleWidth, obstacleHeight, imgObstacle1);
         } else if (randomObstacles % 3 === 0) {
-            let yValue = 230;
-            let obstacleHeight = 20;
-            let obstacleColor = 'red';
-            createAndAnimateObstacles(yValue, obstacleColor, obstacleHeight);
+            let yValue = 220;
+            let obstacleWidth = 50;
+            let obstacleHeight = 15;
+            createAndAnimateObstacles(yValue, obstacleWidth, obstacleHeight, imgObstacle2);
         } else {
-            let yValue = 250;
+            let yValue = 230;
+            let obstacleWidth = 50;
             let obstacleHeight = 20;
-            let obstacleColor = 'grey';
-            createAndAnimateObstacles(yValue, obstacleColor, obstacleHeight);
+            createAndAnimateObstacles(yValue, obstacleWidth, obstacleHeight, imgObstacle3);
         }
         
-        function createAndAnimateObstacles(yValue, obstacleColor, obstacleHeight) {
+        function createAndAnimateObstacles(yValue, obstacleWidth, obstacleHeight, imgObstacle) {
             let obstacle = {
                 x: 1520,
                 y: yValue, 
-                width: 50,
+                width: obstacleWidth,
                 height: obstacleHeight,
-                color: obstacleColor,
                 speed: 4,
                 draw: function() {
-                    ctx.fillStyle = this.color;
-                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                    ctx.drawImage(imgObstacle, this.x, this.y, this.width, this.height);
                 },
                 update: function() {
                     if (this.x > -100) {
