@@ -8,16 +8,18 @@
     <title>Eight project</title>
     <link rel="stylesheet" type="text/css" href="DinosaurRunner.css" /> 
   </head>
-  <body>
+  <body scroll="no" style="overflow: hidden">
     <div class="card">
-        <div class="card-body">
-            <h1>T-Rex Game</h1>
-            <button id="startGame" type="button" class="btn btn-info" onClick="startGame()">
-                Start Game 
-            </button>         
-        </div>
+      <div class="card-body">
+          <h1>T-Rex Game</h1>
+          <button id="startGame" type="button" class="btn btn-info" onClick="startGame()">
+               Start Game 
+          </button>         
+      </div>
     </div>
-    <canvas id="Canvas" width="1520" height="300"></canvas>
+    <div class="canvas-container">
+      <canvas id="Canvas" width="1520" height="300"></canvas>
+    </div>
     <script src="DinosaurRunner.js"></script>
   </body>
 </html>
