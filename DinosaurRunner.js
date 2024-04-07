@@ -19,21 +19,21 @@ imgObstacle3.src = "bird2.png";
 function startGame() {
     let dinosaur = {
         x: 300,
-        y: 205,
+        y: 210,
         width: 60,
-        height: 120,
+        height: 90,
         speed: 5,
         draw: function() {
             ctx.drawImage(imgDinosaur, this.x, this.y, this.width, this.height);
         },
         update: function() { 
-            if (this.y > 20 && dinosaurDirection === 1) {
-                this.y -= this.speed; // Săritură
-                if (this.y <= 20) {
-                    dinosaurDirection = -1; // Schimbăm direcția la coborâre când dinozaurul a atins înălțimea maximă
+            if (this.y > 50 && dinosaurDirection === 1) {
+                this.y -= this.speed;
+                if (this.y <= 50) {
+                    dinosaurDirection = -1;
                 }
-            } else if (this.y < 205 && dinosaurDirection === -1) {
-                this.y += this.speed; // Coborâre
+            } else if (this.y < 210 && dinosaurDirection === -1) {
+                this.y += this.speed;
             }
         }
     }
@@ -50,7 +50,7 @@ function startGame() {
     }
 
     document.addEventListener('keydown', function(event) {
-        if (event.key === ' ' && gameOver === false && dinosaur.y === 205) {
+        if (event.key === ' ' && gameOver === false && dinosaur.y === 210) {
             dinosaurDirection = 1;
         } else if (event.key === 'ArrowDown' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
@@ -59,7 +59,7 @@ function startGame() {
             
         } else if (event.key === 'ArrowUp' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
-            dinosaur.y = 205;
+            dinosaur.y = 210;
             dinosaur.draw();
         }
     });
@@ -68,12 +68,12 @@ function startGame() {
         let pointsCounter = 0;
         randomObstacles = Math.floor(Math.random() * 3) + 1;
         if (randomObstacles % 2 === 0) {
-            let yValue = 260;
-            let obstacleWidth = 70;
-            let obstacleHeight = 60;
+            let yValue = 240;
+            let obstacleWidth = 50;
+            let obstacleHeight = 80;
             createAndAnimateObstacles(yValue, obstacleWidth, obstacleHeight, imgObstacle1);
         } else if (randomObstacles % 3 === 0) {
-            let yValue = 220;
+            let yValue = 205;
             let obstacleWidth = 50;
             let obstacleHeight = 15;
             createAndAnimateObstacles(yValue, obstacleWidth, obstacleHeight, imgObstacle2);
