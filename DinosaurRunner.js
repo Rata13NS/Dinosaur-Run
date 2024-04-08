@@ -9,6 +9,8 @@ let obstacleScheduled = false;
 
 let imgDinosaur = new Image();
 imgDinosaur.src = "images.png";
+let imgDinosaur2 = new Image();
+imgDinosaur2.src = "dinosaur2.png";
 let imgObstacle1 = new Image();
 imgObstacle1.src = "cactus2.png";
 let imgObstacle2 = new Image();
@@ -24,7 +26,11 @@ function startGame() {
         height: 90,
         speed: 5,
         draw: function() {
-            ctx.drawImage(imgDinosaur, this.x, this.y, this.width, this.height);
+            if (dinosaur.y === 255) {
+                ctx.drawImage(imgDinosaur2, this.x, this.y, 80, 45);
+            } else {
+                ctx.drawImage(imgDinosaur, this.x, this.y, this.width, this.height); 
+            }
         },
         update: function() { 
             if (this.y > 50 && dinosaurDirection === 1) {
@@ -54,11 +60,11 @@ function startGame() {
             dinosaurDirection = 1;
         } else if (event.key === 'ArrowDown' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
-            dinosaur.y = 253;
+            dinosaur.y = 255;
             dinosaur.draw();
             
         } else if (event.key === 'ArrowUp' && gameOver === false) {
-            ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
+            ctx.clearRect(dinosaur.x, dinosaur.y, 80, 45);
             dinosaur.y = 210;
             dinosaur.draw();
         }
