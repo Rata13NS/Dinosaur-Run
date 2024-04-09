@@ -4,6 +4,13 @@ let dinosaurDirection = -1;
 let randomObstacles;
 let crashCounter = 0;
 let points = 0;
+let dinosaurInclined = 255;
+let dinosaurNormalPosition = 210;
+let dinosaurMaximJump = 50;
+let minimumObstaclePosition = -100;
+let dinosaurInclinedWidth = 80;
+let dinosaurInclinedHeight = 45;
+let pointsForEachObstacle = 10;
 let gameOver = false;
 let obstacleScheduled = false;
 
@@ -26,19 +33,19 @@ function startGame() {
         height: 90,
         speed: 5,
         draw: function() {
-            if (dinosaur.y === 255) {
-                ctx.drawImage(imgDinosaur2, this.x, this.y, 80, 45);
+            if (dinosaur.y === dinosaurInclined) {
+                ctx.drawImage(imgDinosaur2, this.x, this.y, dinosaurInclinedWidth, dinosaurInclinedHeight);
             } else {
                 ctx.drawImage(imgDinosaur, this.x, this.y, this.width, this.height); 
             }
         },
         update: function() { 
-            if (this.y > 50 && dinosaurDirection === 1) {
+            if (this.y > dinosaurMaximJump && dinosaurDirection === 1) {
                 this.y -= this.speed;
-                if (this.y <= 50) {
+                if (this.y <= dinosaurMaximJump) {
                     dinosaurDirection = -1;
                 }
-            } else if (this.y < 210 && dinosaurDirection === -1) {
+            } else if (this.y < dinosaurNormalPosition && dinosaurDirection === -1) {
                 this.y += this.speed;
             }
         }
@@ -56,16 +63,16 @@ function startGame() {
     }
 
     document.addEventListener('keydown', function(event) {
-        if (event.key === ' ' && gameOver === false && dinosaur.y === 210) {
+        if (event.key === ' ' && gameOver === false && dinosaur.y === dinosaurNormalPosition) {
             dinosaurDirection = 1;
         } else if (event.key === 'ArrowDown' && gameOver === false) {
             ctx.clearRect(dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height);
-            dinosaur.y = 255;
+            dinosaur.y = dinosaurInclined;
             dinosaur.draw();
             
         } else if (event.key === 'ArrowUp' && gameOver === false) {
-            ctx.clearRect(dinosaur.x, dinosaur.y, 80, 45);
-            dinosaur.y = 210;
+            ctx.clearRect(dinosaur.x, dinosaur.y, dinosaurInclinedWidth, dinosaurInclinedHeight);
+            dinosaur.y = dinosaurNormalPosition;
             dinosaur.draw();
         }
     });
@@ -101,7 +108,7 @@ function startGame() {
                     ctx.drawImage(imgObstacle, this.x, this.y, this.width, this.height);
                 },
                 update: function() {
-                    if (this.x > -100) {
+                    if (this.x > minimumObstaclePosition) {
                         this.x -= this.speed; 
                     } else {
                         obstacle = null;
@@ -114,14 +121,14 @@ function startGame() {
                     obstacle.x + obstacle.width > dinosaur.x &&
                     obstacle.y < dinosaur.y + dinosaur.height &&
                     obstacle.y + obstacle.height > dinosaur.y) {
-                        ++crashCounter;
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        if (crashCounter === 1) {
-                            gameOver = true;
-                            alert('Game OVER! You hit an obstacle! You have ' + points + ' points! REFRESH THE PAGE TO START A NEW GAME.');
-                        } 
+                    ++crashCounter;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    if (crashCounter === 1) {
+                        gameOver = true;
+                        alert('Game OVER! You hit an obstacle! You have ' + points + ' points! REFRESH THE PAGE TO START A NEW GAME.');
+                    } 
                 } else if (obstacle.x < dinosaur.x && pointsCounter === 0) {
-                    points += 10;
+                    points += pointsForEachObstacle;
                     pointsCounter = 1;
                 } 
                 requestAnimationFrame(animateObstacles);
