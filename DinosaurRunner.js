@@ -4,25 +4,25 @@ let dinosaurDirection = -1;
 let randomObstacles;
 let crashCounter = 0;
 let points = 0;
-let dinosaurInclined = 255;
-let dinosaurNormalPosition = 210;
-let dinosaurMaximJump = 50;
-let minimumObstaclePosition = -100;
-let dinosaurInclinedWidth = 80;
-let dinosaurInclinedHeight = 45;
-let pointsForEachObstacle = 10;
 let gameOver = false;
 let obstacleScheduled = false;
+const dinosaurInclined = 255;
+const dinosaurNormalPosition = 210;
+const dinosaurMaximJump = 50;
+const minimumObstaclePosition = -100;
+const dinosaurInclinedWidth = 80;
+const dinosaurInclinedHeight = 45;
+const pointsForEachObstacle = 10;
 
-let imgDinosaur = new Image();
+const imgDinosaur = new Image();
 imgDinosaur.src = "images.png";
-let imgDinosaur2 = new Image();
+const imgDinosaur2 = new Image();
 imgDinosaur2.src = "dinosaur2.png";
-let imgObstacle1 = new Image();
+const imgObstacle1 = new Image();
 imgObstacle1.src = "cactus2.png";
-let imgObstacle2 = new Image();
+const imgObstacle2 = new Image();
 imgObstacle2.src = "bird1.png";
-let imgObstacle3 = new Image();
+const imgObstacle3 = new Image();
 imgObstacle3.src = "bird2.png";
 
 function startGame() {
@@ -81,19 +81,19 @@ function startGame() {
         let pointsCounter = 0;
         randomObstacles = Math.floor(Math.random() * 3) + 1;
         if (randomObstacles % 2 === 0) {
-            let yValue = 240;
-            let obstacleWidth = 50;
-            let obstacleHeight = 80;
+            const yValue = 240;
+            const obstacleWidth = 50;
+            const obstacleHeight = 80;
             createAndAnimateObstacles(yValue, obstacleWidth, obstacleHeight, imgObstacle1);
         } else if (randomObstacles % 3 === 0) {
-            let yValue = 205;
-            let obstacleWidth = 50;
-            let obstacleHeight = 15;
+            const yValue = 205;
+            const obstacleWidth = 50;
+            const obstacleHeight = 15;
             createAndAnimateObstacles(yValue, obstacleWidth, obstacleHeight, imgObstacle2);
         } else {
-            let yValue = 230;
-            let obstacleWidth = 50;
-            let obstacleHeight = 20;
+            const yValue = 230;
+            const obstacleWidth = 50;
+            const obstacleHeight = 20;
             createAndAnimateObstacles(yValue, obstacleWidth, obstacleHeight, imgObstacle3);
         }
         
